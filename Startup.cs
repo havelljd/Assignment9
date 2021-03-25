@@ -1,6 +1,8 @@
+using DateMe.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,13 @@ namespace DateMe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<MovieDbContext>(options =>
+            {
+                options.UseSqlite(Configuration["ConnectionStrings:DefaultConnection"]);
+            });
+
+            services.AddScoped<IMovieRepository, EFMovieRespository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +61,8 @@ namespace DateMe
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //This took me forever, DON'T FORGET TO ADD THIS THING BELOW TO GET SEED DATA INTO DATABASE
+            SeedData.EnsurePopulated(app);
         }
     }
 }

@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+@model DateMe.Models.EnterMovieModel
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+@*I added the asp validation on top of each one, this makes it look better, I think*@
+
+<body>
+    <h1>@ViewData["Title"]</h1>
+    <br />
+    <h2>Enter the new movie below:</h2>
+    <form asp-action="Update" method="post">
+        @Html.ValidationMessageFor(Model => Model.category, "", new { @class = "text-danger" })
+        <br />
+        <label asp-for="category">Enter category here:</label>
+        <input type="text" id="category" asp-for="category" />
+        <br />
+        @Html.ValidationMessageFor(Model => Model.title, "", new { @class = "text-danger" })
+        <br />
+        <label asp-for="title">Enter title here:</label>
+        <input type="text" id="title" asp-for="title" />
+        <br />
+        @Html.ValidationMessageFor(Model => Model.year, "", new { @class = "text-danger" })
+        <br />
+        <label asp-for="year">Enter year here:</label>
+        <input type="number" maxlength="4" id="year" asp-for="year" />
+        <br />
+        @Html.ValidationMessageFor(Model => Model.director, "", new { @class = "text-danger" })
+        <br />
+        <label asp-for="director">Enter director here:</label>
+        <input type="text" id="director" asp-for="director" />
+        <br />
+        @Html.ValidationMessageFor(Model => Model.rating, "", new { @class = "text-danger" })
+        <br />
+        <select id="rating" asp-for="rating">
+            <option value="G">G</option>
+            <option value="PG">PG</option>
+            <option value="PG-13">PG-13</option>
+            <option value="R">R</option>
+            <option value="NR">NR</option>
+            <option value="UR">UR</option>
+            <option value="TV-Y7">TV-Y7</option>
+            <option value="TV-14">TV-14</option>
+            <option value="TV-PG">TV-PG</option>
+        </select>
+        <br />
+        @Html.ValidationMessageFor(Model => Model.edited, "", new { @class = "text-danger" })
+        <br />
+        <label asp-for="edited">Is it edited?</label>
+        <input type="checkbox" id="edited" asp-for="edited" />
+        <br />
+        @Html.ValidationMessageFor(Model => Model.lentto, "", new { @class = "text-danger" })
+        <br />
+        <label asp-for="lentto">Lent to:</label>
+        <input type="text" id="lentto" asp-for="lentto" />
+        <br />
+        @Html.ValidationMessageFor(Model => Model.notes, "", new { @class = "text-danger" })
+        <br />
+        <label asp-for="notes">Notes:</label>
+        <input type="text" maxlength="25" id="notes" asp-for="notes" />
+        <br />
+        <input type="hidden" asp-for="movieId" value="@Model.movieId" />
+        <button type="submit" value="Submit" id="submit">Submit</button>
+    </form>
+    <div asp-validation-summary="All"></div>
+</body>

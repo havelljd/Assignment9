@@ -9,6 +9,9 @@ namespace DateMe.Models
     public class EnterMovieModel
     {
         [Required]
+        [Key]
+        public int movieId { get; set; }
+        [Required]
         public string category { get; set; }
         [Required]
         public string title { get; set; }

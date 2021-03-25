@@ -5,7 +5,7 @@
     ViewBag.Title = "View Movies";
 }
 
-@model IEnumerable<DateMe.Models.EnterMovieModel>
+@model IQueryable<EnterMovieModel>
 
 <div>
     <h2>
@@ -13,11 +13,11 @@
     </h2>
     <table style="border-spacing: 10px;">
         <thead>
-            <tr><th>Category</th><th>Title</th><th>Year</th><th>Director</th><th>Rating</th><th>Edited</th><th>Lent To:</th><th>Notes</th></tr>
+            <tr><th>Category</th><th>Title</th><th>Year</th><th>Director</th><th>Rating</th><th>Edited</th><th>Lent To:</th><th>Notes</th><th>Edit</th><th>Delete</th></tr>
         </thead>
 
         <tbody>
-            @foreach (DateMe.Models.EnterMovieModel x in Model)
+            @foreach (var x in Model)
             {
                 <tr>
                 <td syle="padding: 0 15px;">@x.category</td>
@@ -28,6 +28,9 @@
                 <td>@x.edited</td>
                 <td>@x.lentto</td>
                 <td>@x.notes</td>
+                    @*These two buttons below are the hidden forms attached to each button, which take the movie object to the controller*@
+                    <td><form asp-action="Edit" method="post"><input type="hidden" @*asp-for="movieId"*@ name="movieId" value="@x.movieId" /><button type="submit" class="btn btn-warning" value="Edit">Edit</button></form></td>
+                    <td><form asp-action="Delete" method="post"><input type="hidden" name="movieId" value="@x.movieId" /><button type="submit" class="btn btn-danger" value="Delete">Delete</button></form></td>
                     </tr>
             }
         </tbody>
